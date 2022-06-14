@@ -3,7 +3,7 @@ const authRoute = require("./routes/auth");
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,5 +23,5 @@ app.get("/test", (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`App started on port ${process.env.PORT}!`);
+    console.log(`App started on port ${PORT}!`);
 });
