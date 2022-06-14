@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  backend:
+    container_name: backend
+    image: backend
+    build: 
+      context: .
+      dockerfile: backend.dockerfile 
+    environment:
+      - PORT=3001
+    expose:
+      - 3001
+    ports:
+      - "3001:3001"
+    
