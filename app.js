@@ -2,6 +2,7 @@ const express = require("express");
 const authRoute = require("./routes/auth");
 const dataRoute = require("./routes/data");
 const cors = require("cors");
+const os = require("os");
 
 const app = express();
 
@@ -16,7 +17,11 @@ app.use("/auth", authRoute);
 app.use("/data", dataRoute);
 
 app.get("/", (req, res) => {
-    res.send("This is the home page");
+    const hostname = os.hostname();
+    res.send({
+        success: true,
+        container: hostname,
+    });
 });
 
 app.get("/info", (req, res) => {
