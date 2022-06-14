@@ -130,9 +130,17 @@ router.delete("/", async (req, res) => {
 
         const { _id: user } = data;
 
+        let id;
+
+        try {
+            id = ObjectId(_id);
+        } catch (error) {
+            return res.status(400).send(new InvalidBodyResponse("Invalid id"));
+        }
+
         const collection = client.db("geekout-2022").collection("hearing_data");
         const results = await collection.deleteOne({
-            _id: ObjectId(_id),
+            _id: id,
             user,
         });
 
