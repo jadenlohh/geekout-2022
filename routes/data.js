@@ -4,6 +4,7 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const JWT = require("../utils/jwt");
 const { getData, insertData } = require("../utils/yupSchemas");
 const InvalidBodyResponse = require("../utils/Response/InvalidBodyResponse");
+const InvalidCredentialsResponse = require("../utils/Response/InvalidCredentialsResponse");
 
 const router = express.Router();
 const uri =
@@ -34,7 +35,17 @@ router.get("/", async (req, res) => {
                 .send("Internal Server Error: Client connection error");
         }
 
-        const { _id } = JWT.verify(token);
+        let data;
+
+        try {
+            data = JWT.verify(token);
+        } catch (error) {
+            return res
+                .status(401)
+                .send(new InvalidCredentialsResponse("Invalid token"));
+        }
+
+        const { _id } = data;
 
         const collection = client.db("geekout-2022").collection("hearing_data");
         const results = await collection.find({ user: _id }).toArray();
@@ -55,7 +66,14 @@ router.post("/", async (req, res) => {
         const collection = client.db("geekout-2022").collection("hearing_data");
 
         // Get the data from the token
-        const data = JWT.verify(token);
+        let data;
+        try {
+            data = JWT.verify(token);
+        } catch (error) {
+            return res
+                .status(401)
+                .send(new InvalidCredentialsResponse("Invalid token"));
+        }
 
         const { _id } = data;
 
