@@ -20,6 +20,6 @@ app.get("/test", (req, res) => {
     res.send("This is the test page");
 });
 
-app.listen(3000, () => {
-    console.log("App started on port 3000!");
+app.listen(process.env.PORT, () => {
+    console.log(`App started on port ${process.env.PORT}!`);
 });
