@@ -19,7 +19,7 @@ To develop the application, you have two choices for database
 1.  Connect to the cloud database
 2.  Connect to the local database (using Docker)
 
-## Connecting to cloud database (Be careful, more chance to break something because its in the cloud!)
+## 1. Connecting to cloud database (Be careful, more chance to break something because its in the cloud!)
 
 To connect to the cloud database, head over to `app.js` and comment line 23 and uncomment line 24. It should look something like this:
 
@@ -31,7 +31,7 @@ const uri =
 
 All data will be synced to the cloud database when using the application.
 
-## Connecting to local database (All database files are stored in the `/data/mongo` folder)
+## 2. Connecting to local database (All database files are stored in the `/data/mongo` folder)
 
 To connect to the local database (managed by docker), head over to `app.js` and comment line 24 and uncomment line 23. It should look something like this:
 
@@ -51,6 +51,10 @@ This will open two ports for development purposes (Local Database)
 -   `27017`: for the local database (mongo)
 -   `8081`: for mongo express (Web interface to view data of the mongo database)
     -   ![](./docs/mongo-express.png)
+
+### Persistance
+
+Don't worry, the data is stored in the `/data/mongo` folder and persisted in the local database even after the docker containers are closed/restarted.
 
 ### SHUT DOWN THE DOCKER CONTAINERS
 
