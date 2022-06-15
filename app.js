@@ -21,6 +21,7 @@ app.use("/data", dataRoute);
 app.use("/user", userRoute);
 
 const uri = "mongodb://root:root@localhost:27017";
+// const uri = "mongodb+srv://Admin:lAf8JiPQynG0mCGm@cluster0.vobnv.mongodb.net/?retryWrites=true&w=majority"
 
 mongoose.connect(uri);
 
