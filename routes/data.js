@@ -1,8 +1,8 @@
 const express = require("express");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
 const JWT = require("../utils/jwt");
-const { getData, insertData } = require("../utils/yupSchemas");
+const { getData, insertData, deleteData } = require("../utils/yupSchemas");
 const InvalidBodyResponse = require("../utils/Response/InvalidBodyResponse");
 const InvalidCredentialsResponse = require("../utils/Response/InvalidCredentialsResponse");
 
@@ -53,6 +53,7 @@ router.get("/", async (req, res) => {
     });
 });
 
+// ! Endpoint for inserting data
 router.post("/", async (req, res) => {
     const isSchemaValid = await insertData.isValid(req.body);
 
@@ -94,6 +95,59 @@ router.post("/", async (req, res) => {
                 });
             }
             console.log(result);
+        });
+    });
+});
+
+// ! Endpoint for deleting data
+router.delete("/", async (req, res) => {
+    const isSchemaValid = await deleteData.isValid(req.body);
+
+    // Return an error if the schema is not valid
+    if (!isSchemaValid) {
+        return res.status(400).send(new InvalidBodyResponse("Invalid body"));
+    }
+
+    const { token, _id } = req.body;
+
+    client.connect(async (err) => {
+        if (err) {
+            console.log(err);
+            return res
+                .status(500)
+                .send("Internal Server Error: Client connection error");
+        }
+
+        let data;
+
+        try {
+            data = JWT.verify(token);
+        } catch (error) {
+            return res
+                .status(401)
+                .send(new InvalidCredentialsResponse("Invalid token"));
+        }
+
+        const { _id: user } = data;
+
+        let id;
+
+        try {
+            id = ObjectId(_id);
+        } catch (error) {
+            return res.status(400).send(new InvalidBodyResponse("Invalid id"));
+        }
+
+        const collection = client.db("geekout-2022").collection("hearing_data");
+        const results = await collection.deleteOne({
+            _id: id,
+            user,
+        });
+
+        return res.status(201).json({
+            success: true,
+            // Return the number of documents deleted
+            deletedCount: results.deletedCount,
         });
     });
 });

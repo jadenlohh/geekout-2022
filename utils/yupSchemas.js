@@ -14,6 +14,11 @@ const yupSchemas = {
         token: yup.string().required(),
         score: yup.number().required(),
     }),
+
+    deleteData: yup.object().shape({
+        token: yup.string().required(),
+        _id: yup.string().required(),
+    }),
 };
 
 module.exports = yupSchemas;
