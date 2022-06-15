@@ -47,7 +47,7 @@ app.get("/error", (req, res, next) => {
 
 // ! Error Handler
 app.use((err, req, res, next) => {
-    res.status(err.status || 500).send(err.message);
+    res.status(err.status || 500).json(err.message);
 });
 
 app.listen(PORT, () => {
