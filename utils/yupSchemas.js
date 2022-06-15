@@ -6,7 +6,7 @@ const yupSchemas = {
         password: yup.string().required(),
     }),
 
-    getData: yup.object().shape({
+    tokenOnlyBody: yup.object().shape({
         token: yup.string().required(),
     }),
 
@@ -18,6 +18,12 @@ const yupSchemas = {
     deleteData: yup.object().shape({
         token: yup.string().required(),
         _id: yup.string().required(),
+    }),
+
+    registerSchema: yup.object().shape({
+        email: yup.string().email().required(),
+        password: yup.string().required(),
+        name: yup.string().required(),
     }),
 };
 
