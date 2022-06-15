@@ -1,155 +1,134 @@
 const express = require("express");
-const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const { ObjectId } = require("mongodb");
 
 const JWT = require("../utils/jwt");
-const { getData, insertData, deleteData } = require("../utils/yupSchemas");
+const {
+    insertData,
+    deleteData,
+    tokenOnlyBody,
+} = require("../utils/yupSchemas");
 const InvalidBodyResponse = require("../utils/Response/InvalidBodyResponse");
 const InvalidCredentialsResponse = require("../utils/Response/InvalidCredentialsResponse");
+const InternalServerError = require("../utils/Response/InternalServerError");
+const SuccessResponse = require("../utils/Response/SuccessResponse");
+const HearingData = require("../schemas/HearingData");
 
 const router = express.Router();
-const uri =
-    "mongodb+srv://Admin:lAf8JiPQynG0mCGm@cluster0.vobnv.mongodb.net/?retryWrites=true&w=majority";
-
-const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverApi: ServerApiVersion.v1,
-});
 
 // ! GET Route for data
-router.get("/", async (req, res) => {
-    const schemaIsValid = await getData.isValid(req.query);
+router.get("/", async (req, res, next) => {
+    const schemaIsValid = await tokenOnlyBody.isValid(req.query);
 
     // Return an error if the schema is not valid
     if (!schemaIsValid) {
-        return res.status(400).send(new InvalidBodyResponse("Invalid body"));
+        return next(new InvalidBodyResponse());
     }
 
     const { token } = req.query;
 
-    client.connect(async (err) => {
+    let tokenData;
+
+    try {
+        tokenData = JWT.verify(token);
+    } catch (error) {
+        return next(new InvalidCredentialsResponse());
+    }
+
+    const { _id } = tokenData;
+
+    console.log(tokenData);
+
+    HearingData.find({ user_id: _id }, (err, data) => {
         if (err) {
-            console.log(err);
-            return res
-                .status(500)
-                .send("Internal Server Error: Client connection error");
+            return next(
+                new InternalServerError("Error connecting to database")
+            );
         }
 
-        let data;
-
-        try {
-            data = JWT.verify(token);
-        } catch (error) {
-            return res
-                .status(401)
-                .send(new InvalidCredentialsResponse("Invalid token"));
-        }
-
-        const { _id } = data;
-
-        const collection = client.db("geekout-2022").collection("hearing_data");
-        const results = await collection.find({ user: _id }).toArray();
-        return res.json(results);
+        return next(new SuccessResponse(data));
     });
 });
 
 // ! Endpoint for inserting data
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
     const isSchemaValid = await insertData.isValid(req.body);
 
     if (!isSchemaValid) {
-        return res.status(400).send(new InvalidBodyResponse("Invalid body"));
+        return next(new InvalidBodyResponse());
     }
 
     const { token, score } = req.body;
 
-    client.connect((err) => {
-        const collection = client.db("geekout-2022").collection("hearing_data");
+    const collection = client.db("geekout-2022").collection("hearing_data");
 
-        // Get the data from the token
-        let data;
-        try {
-            data = JWT.verify(token);
-        } catch (error) {
-            return res
-                .status(401)
-                .send(new InvalidCredentialsResponse("Invalid token"));
+    // Get the data from the token
+    let tokenData;
+    try {
+        tokenData = JWT.verify(token);
+    } catch (error) {
+        return next(new InvalidCredentialsResponse());
+    }
+
+    const { _id } = tokenData;
+
+    const hearingData = new HearingData({
+        user: tokenData._id,
+        score: parseInt(score),
+    });
+
+    hearingData.save((err, data) => {
+        if (err) {
+            return next(
+                new InternalServerError("Error connecting to database")
+            );
         }
 
-        const { _id } = data;
-
-        var testData = {
-            user: _id,
-            score: parseInt(score),
-            created_at: new Date().toISOString(),
-        };
-
-        collection.insertOne(testData, (err, result) => {
-            if (err) {
-                console.log(err);
-            }
-
-            if (result) {
-                return res.status(204).json({
-                    success: true,
-                });
-            }
-            console.log(result);
-        });
+        return next(new SuccessResponse(data));
     });
 });
 
 // ! Endpoint for deleting data
-router.delete("/", async (req, res) => {
+router.delete("/", async (req, res, next) => {
     const isSchemaValid = await deleteData.isValid(req.body);
 
     // Return an error if the schema is not valid
     if (!isSchemaValid) {
-        return res.status(400).send(new InvalidBodyResponse("Invalid body"));
+        return next(new InvalidBodyResponse());
     }
 
     const { token, _id } = req.body;
 
-    client.connect(async (err) => {
-        if (err) {
-            console.log(err);
-            return res
-                .status(500)
-                .send("Internal Server Error: Client connection error");
+    let tokenData;
+
+    try {
+        tokenData = JWT.verify(token);
+    } catch (error) {
+        return next(new InvalidCredentialsResponse());
+    }
+
+    const { _id: userObjectId } = tokenData;
+
+    let hearingDataObjectId;
+
+    try {
+        hearingDataObjectId = ObjectId(_id);
+    } catch (error) {
+        return next(new InvalidCredentialsResponse());
+    }
+
+    // Delete one
+    HearingData.deleteOne(
+        { _id: hearingDataObjectId, user: ObjectId(userObjectId) },
+        (err, data) => {
+            if (err) {
+                return next(
+                    new InternalServerError("Error connecting to database")
+                );
+            }
+
+            return next(new SuccessResponse(data));
         }
-
-        let data;
-
-        try {
-            data = JWT.verify(token);
-        } catch (error) {
-            return res
-                .status(401)
-                .send(new InvalidCredentialsResponse("Invalid token"));
-        }
-
-        const { _id: user } = data;
-
-        let id;
-
-        try {
-            id = ObjectId(_id);
-        } catch (error) {
-            return res.status(400).send(new InvalidBodyResponse("Invalid id"));
-        }
-
-        const collection = client.db("geekout-2022").collection("hearing_data");
-        const results = await collection.deleteOne({
-            _id: id,
-            user,
-        });
-
-        return res.status(201).json({
-            success: true,
-            // Return the number of documents deleted
-            deletedCount: results.deletedCount,
-        });
-    });
+    );
 });
 
 module.exports = router;

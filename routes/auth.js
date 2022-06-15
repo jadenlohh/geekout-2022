@@ -1,72 +1,70 @@
 const express = require("express");
-const { MongoClient, ServerApiVersion, MongoServerError } = require("mongodb");
 const bcrypt = require("bcrypt");
 
 const JWT = require("../utils/jwt");
-const { loginSchema } = require("../utils/yupSchemas");
+const { loginSchema, registerSchema } = require("../utils/yupSchemas");
 const InvalidBodyResponse = require("../utils/Response/InvalidBodyResponse");
 const InvalidCredentialsResponse = require("../utils/Response/InvalidCredentialsResponse");
-const LoginResponse = require("../utils/Response/LoginResponse");
+const UserExistsError = require("../utils/Response/UserExistsError");
+const SuccessResponse = require("../utils/Response/SuccessResponse");
+const InternalServerError = require("../utils/Response/InternalServerError");
+const User = require("../schemas/User");
 
 const router = express.Router();
-const uri =
-    "mongodb+srv://Admin:lAf8JiPQynG0mCGm@cluster0.vobnv.mongodb.net/?retryWrites=true&w=majority";
-
-const client = new MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverApi: ServerApiVersion.v1,
-});
 
 // ! POST Route for /auth/register
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res, next) => {
     const schemaIsValid = await loginSchema.isValid(req.body);
 
     // Return an error if the schema is not valid
     if (!schemaIsValid) {
-        return res.status(400).send(new InvalidBodyResponse("Invalid body"));
+        return next(new InvalidBodyResponse());
     }
 
     const { email, password } = req.body;
 
-    client.connect((err) => {
-        const collection = client.db("geekout-2022").collection("credentials");
+    // Find one user
+    User.findOne({ email }, (err, person) => {
+        if (err) {
+            return next(new InternalServerError(err));
+        }
 
-        collection.findOne({ _id: email }, (err, result) => {
-            if (err) throw err;
+        // If no results
+        if (!person) {
+            return next(new InvalidCredentialsResponse());
+        }
 
-            var checkPwd = bcrypt.compareSync(password, result.pwd);
-            const token = JWT.sign({ _id: result._id });
+        const { password: db_password, _id } = person;
+        var checkPwd = bcrypt.compareSync(password, db_password);
 
-            if (checkPwd) {
-                // If password is valid, return the user the JWT token
-                return res.send(new LoginResponse({ token }));
-            } else {
-                // If password is invalid, return a 401 error
-                return res
-                    .status(401)
-                    .send(
-                        new InvalidCredentialsResponse("Invalid credentials")
-                    );
-            }
-        });
+        if (!checkPwd) {
+            // If password is valid, return the user the JWT token
+            return next(new InvalidCredentialsResponse());
+        }
+
+        const token = JWT.sign({ _id });
+        return next(new SuccessResponse({ token }));
     });
 });
 
-router.get("/register", (req, res) => {
-    res.send("This is the register page");
+router.post("/register", async (req, res, next) => {
+    const isSchemaValid = await registerSchema.isValid(req.body);
+    if (!isSchemaValid) {
+        return next(new InvalidBodyResponse());
+    }
 
-    client.connect((err) => {
-        const collection = client.db("geekout-2022").collection("credentials");
+    const { email, password, name } = req.body;
 
-        var hash = bcrypt.hashSync("Password123", 10);
-        var testData = { _id: "test@gmail.com", pwd: hash };
+    var hash = bcrypt.hashSync(password, 10);
+    var newUser = new User({ name, email, password: hash });
 
-        collection.insertOne(testData, (err, result) => {
-            if (MongoServerError && err.message.indexOf("11000")) {
-                console.log("Email already exist!");
-            }
-        });
+    newUser.save((err, result) => {
+        if (err && err.code === 11000) {
+            return next(new UserExistsError());
+        }
+        console.log(result);
+
+        return next(new SuccessResponse(result));
     });
 });
 

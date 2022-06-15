@@ -1,8 +1,8 @@
-const Response = require("./Response");
+const { Unauthorized } = require("http-errors");
 
-class InvalidCredentialsResponse extends Response {
-    constructor(data) {
-        super(401, false, data);
+class InvalidCredentialsResponse extends Unauthorized {
+    constructor() {
+        super({ success: false, data: { error: "Invalid credentials" } });
     }
 }
 
