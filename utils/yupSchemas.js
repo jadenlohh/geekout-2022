@@ -24,6 +24,8 @@ const yupSchemas = {
         email: yup.string().email().required(),
         password: yup.string().required(),
         name: yup.string().required(),
+        age: yup.number().required(),
+        gender: yup.string().required(),
     }),
 };
 
