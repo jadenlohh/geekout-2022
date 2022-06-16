@@ -7,6 +7,7 @@ import Moreinfo from './pages/Moreinfo';
 import Test from "./pages/Test";
 import Home  from "./pages/Home";
 
+
 function App() {
     return (
         <>
