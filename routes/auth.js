@@ -53,15 +53,29 @@ router.post("/register", async (req, res, next) => {
         return next(new InvalidBodyResponse());
     }
 
-    const { email, password, name } = req.body;
+    const { email, password, name, age, gender } = req.body;
 
     var hash = bcrypt.hashSync(password, 10);
-    var newUser = new User({ name, email, password: hash });
+    var newUser = new User({ name, email, password: hash, age, gender });
 
     newUser.save((err, result) => {
+        if (err && Object.prototype.hasOwnProperty.call(err, "errors")) {
+            console.log(err);
+            const errorMessage = Object.keys(err.errors)
+                .map((key) => err.errors[key].message)
+                .join(". ");
+
+            return next(new InternalServerError(errorMessage));
+        }
+
         if (err && err.code === 11000) {
             return next(new UserExistsError());
         }
+
+        if (err) {
+            return next(new InternalServerError("Something went wrong"));
+        }
+
         console.log(result);
 
         return next(new SuccessResponse(result));
