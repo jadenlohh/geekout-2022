@@ -167,7 +167,7 @@ function Register() {
                     <FloatingLabel controlId="password" label="Password">
                         <Form.Control
                             type="password"
-                            className="shadow-none"
+                            className="shadow-none mb-2"
                             placeholder="Password"
                             value={password}
                             required

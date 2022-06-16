@@ -10,21 +10,15 @@ function NavigationBar() {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand>Logo</Navbar.Brand>
+                <Navbar.Brand>
+                    <img src={logo} width={60}c alt="Logo" />
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link>
-                            <Link to="/">Home</Link>
-                        </Nav.Link>
-
-                        <Nav.Link>
-                            <Link to="/info">Information</Link>
-                        </Nav.Link>
-
-                        <Nav.Link>
-                            <Link to="/test">Test</Link>
-                        </Nav.Link>
+                        <Nav.Link href="/">Home</Nav.Link>
+                        <Nav.Link href="/info">Information</Nav.Link>
+                        <Nav.Link href="/test">Test Your Hearing</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
 
