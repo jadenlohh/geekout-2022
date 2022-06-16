@@ -1,5 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FloatingLabel, Form, Button, Container, Alert } from "react-bootstrap";
+import {
+    FloatingLabel,
+    Form,
+    Button,
+    Container,
+    Alert,
+    Row,
+    Col,
+} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useFrequency } from "react-frequency";
 import { IoMdWarning, IoWarning } from "react-icons/io5";
@@ -139,8 +147,10 @@ function Test() {
 
                         <p class="lead">
                             At every stage, you will be asked if you can hear
-                            any frequency. Click either Yes or No.
+                            something. Click either Yes or No.
                         </p>
+
+                        <p>Stage {level + 1}</p>
 
                         <Form.Label>
                             Volume {Math.round(gain * 100)}%
@@ -162,33 +172,45 @@ function Test() {
                         <Button onClick={toggle}>
                             {playing ? "Pause" : "Play"}
                         </Button>
-                        <h1>Can you hear anything?</h1>
 
-                        <div className="d-grid gap-2">
-                            <Button
-                                variant="success"
-                                onClick={handleNo}
-                                disabled={!playing}
-                            >
-                                Yes
-                            </Button>
-                            <Button
-                                variant="danger"
-                                onClick={handleNextStep}
-                                disabled={!playing}
-                            >
-                                No
-                            </Button>
+                        <div style={{ marginTop: "2em", marginBottom: "2em" }}>
+                            <h1>Can you hear anything?</h1>
+
+                            <Row>
+                                <Col lg={6}>
+                                    <div className="d-grid gap-2">
+                                        <Button
+                                            variant="danger"
+                                            onClick={handleNextStep}
+                                            disabled={!playing}
+                                        >
+                                            No
+                                        </Button>
+                                    </div>
+                                </Col>
+
+                                <Col lg={6}>
+                                    <div className="d-grid gap-2">
+                                        <Button
+                                            variant="success"
+                                            onClick={handleNo}
+                                            disabled={!playing}
+                                        >
+                                            Yes
+                                        </Button>
+                                    </div>
+                                </Col>
+                            </Row>
                         </div>
                     </>
                 )}
 
                 {status === STATUS.FINISHED && (
                     <>
-                        <h1>Test finished</h1>
+                        <h1>Test completed</h1>
                         <p class="lead">
-                            You can now go to your profile page to see how your
-                            hearing is.
+                            You can now go to your statistics page to see how
+                            your hearing is.
                         </p>
 
                         <Button
@@ -196,7 +218,7 @@ function Test() {
                             onClick={() => navigate("/chart")}
                             style={buttonStyle}
                         >
-                            Go Profile Page
+                            Go Statistics Page
                         </Button>
                     </>
                 )}
