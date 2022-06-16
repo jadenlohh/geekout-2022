@@ -8,34 +8,16 @@ import useToken from "../hooks/useToken";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { TokenContext } from "../App";
+import generateFrequencySteps from "../utils/generateFrequencySteps";
 
-const frequencySteps = [
-    20000, 19000, 18000, 17000, 16000, 15000, 14000, 13000, 12000, 11000, 10000,
-    9000, 8000, 7000, 6000, 5000, 4000, 3000, 2000, 1000,
-];
+// An array of frequencySteps ranging from 20000 to 20 decrementing by 500 hz
+const frequencySteps = generateFrequencySteps(0, 20000, 500).reverse();
 
-const loginStyle = {
-    borderRadius: "20px",
-    boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
-    padding: "70px 50px 50px 50px",
-    width: "38%",
-    margin: "auto",
-    marginTop: "5rem",
-};
+console.log(frequencySteps);
 
 const buttonStyle = {
     width: "100%",
     padding: "10px",
-};
-
-const signUpStyle = {
-    color: "grey",
-    fontSize: "14px",
-};
-
-const textStyle = {
-    fontSize: "13px",
-    textAlign: "right",
 };
 
 const STATUS = {
@@ -47,7 +29,7 @@ const STATUS = {
 function Test() {
     const { token } = useContext(TokenContext);
 
-    const [started, setStarted] = useState(STATUS.NOT_STARTED);
+    const [status, setStatus] = useState(STATUS.NOT_STARTED);
     const [gain, setGain] = useState(0.5);
 
     const [level, setLevel] = useState(0);
@@ -62,7 +44,13 @@ function Test() {
     });
 
     const handleNextStep = () => {
-        setLevel(level + 1);
+        if (level < frequencySteps.length - 1) {
+            setLevel(level + 1);
+        }
+
+        if (level === frequencySteps.length - 1) {
+            setStatus(STATUS.FINISHED);
+        }
     };
 
     const handleNo = async () => {
@@ -74,7 +62,7 @@ function Test() {
         });
 
         console.log(response);
-        setStarted(STATUS.FINISHED);
+        setStatus(STATUS.FINISHED);
     };
 
     useEffect(() => {
@@ -89,7 +77,7 @@ function Test() {
         <div>
             <NavigationBar />
             <Container style={{ textAlign: "center" }}>
-                {started === STATUS.NOT_STARTED && (
+                {status === STATUS.NOT_STARTED && (
                     <>
                         <h1>Test your hearing</h1>
                         <p class="lead">
@@ -138,14 +126,14 @@ function Test() {
 
                         <Button
                             variant="primary"
-                            onClick={() => setStarted(STATUS.STARTED)}
+                            onClick={() => setStatus(STATUS.STARTED)}
                         >
                             Continue
                         </Button>
                     </>
                 )}
 
-                {started === STATUS.STARTED && (
+                {status === STATUS.STARTED && (
                     <>
                         <h2>Test your hearing</h2>
 
@@ -195,7 +183,7 @@ function Test() {
                     </>
                 )}
 
-                {started === STATUS.FINISHED && (
+                {status === STATUS.FINISHED && (
                     <>
                         <h1>Test finished</h1>
                         <p class="lead">
