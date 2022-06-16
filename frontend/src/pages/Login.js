@@ -1,7 +1,6 @@
-import React from 'react';
-import { FloatingLabel, Form, Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import React, { useState } from "react";
+import { FloatingLabel, Form, Button } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Login() {
     const loginStyle = {
@@ -10,49 +9,71 @@ function Login() {
         padding: "70px 50px 50px 50px",
         width: "38%",
         margin: "auto",
-        marginTop: "5rem"
+        marginTop: "5rem",
     };
 
     const buttonStyle = {
         width: "100%",
-        padding: "10px"
-    }
+        padding: "10px",
+    };
 
     const signUpStyle = {
         color: "grey",
-        fontSize: "14px"
-    }
+        fontSize: "14px",
+    };
 
     const textStyle = {
         fontSize: "13px",
-        textAlign: "right"
-    }
+        textAlign: "right",
+    };
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     return (
-        <div style={ loginStyle }>
+        <div style={loginStyle}>
             <h3>Welcome!</h3>
             <p className="mb-5">Please sign in to continue</p>
 
-            <FloatingLabel controlId="email" className="mb-2" label="Email address">
-                <Form.Control type="email" className="shadow-none" placeholder="name@example.com" />
+            <FloatingLabel
+                controlId="email"
+                className="mb-2"
+                label="Email address"
+            >
+                <Form.Control
+                    type="email"
+                    className="shadow-none"
+                    placeholder="name@example.com"
+                />
             </FloatingLabel>
 
             <div>
                 <FloatingLabel controlId="password" label="Password">
-                    <Form.Control type="password" className="shadow-none" placeholder="Password" />
+                    <Form.Control
+                        type="password"
+                        className="shadow-none"
+                        placeholder="Password"
+                    />
                 </FloatingLabel>
-                <p style={ textStyle }><a href="/forget">Forgot password</a></p>
+                <p style={textStyle}>
+                    <a href="/forget">Forgot password</a>
+                </p>
             </div>
 
-            <Button variant="primary" type="submit" className="shadow-none mt-2" style={ buttonStyle }>
+            <Button
+                variant="primary"
+                type="submit"
+                className="shadow-none mt-2"
+                style={buttonStyle}
+            >
                 Continue
             </Button>
 
-            <p className="text-center mt-3" style={ signUpStyle }>
+            <p className="text-center mt-3" style={signUpStyle}>
                 Don't have an account? <a href="/register">Sign up</a>
             </p>
         </div>
-    )
-};
-  
+    );
+}
+
 export default Login;
