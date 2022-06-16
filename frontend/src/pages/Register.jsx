@@ -12,6 +12,8 @@ import useToken from "../hooks/useToken";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
+import { useContext } from "react";
+import { TokenContext } from "../App";
 
 const registerStyle = {
     borderRadius: "20px",
@@ -33,8 +35,7 @@ const signUpStyle = {
 };
 
 function Register() {
-    // Token hook
-    const { token, saveTokenToLocalStorage } = useToken();
+    const { token } = useContext(TokenContext);
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -92,6 +93,7 @@ function Register() {
 
     return (
         <>
+            <NavigationBar />
             <div className="mx-auto" style={registerStyle}>
                 <h3>Hey there! 👋</h3>
                 <p className="mb-5">Sign up now to get started</p>

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FloatingLabel, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import useToken from "../hooks/useToken";
 import { useNavigate } from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
+import { TokenContext } from "../App";
 
 function Login() {
-    const { token, saveTokenToLocalStorage } = useToken();
+    const { token, saveTokenToStorage } = useContext(TokenContext);
 
     const loginStyle = {
         borderRadius: "20px",
@@ -65,7 +66,7 @@ function Login() {
             } = data;
 
             if (success) {
-                saveTokenToLocalStorage(token);
+                saveTokenToStorage(token);
             }
 
             setError("");
@@ -79,6 +80,7 @@ function Login() {
 
     return (
         <>
+            <NavigationBar />
             <div style={loginStyle}>
                 <h3>Welcome!</h3>
                 <p className="mb-5">Please sign in to continue</p>
