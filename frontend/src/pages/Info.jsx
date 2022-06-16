@@ -4,20 +4,29 @@ import logo from './hearing.png';
 import logo1 from './hearing1.png';
 import logo2 from './hearing2.png';
 import logo3 from './hearing3.png';
+import aboutus from './aboutus.jpg';
+import aboutus1 from './aboutus1.png';
+import aboutus2 from './aboutus2.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 
-const testAlign = {
+const testAlign = { // to align the text in the middle
     textAlign : 'center',
-    fontSize : 15,
+    fontSize : 20,
 
 }
-const TEXT = {
+const SMALLERTEXT = {
+    fontSize : 16,   //for "What we do"
+    
+
+}
+
+const TEXT = { // text size for the information part
     fontSize : 18,
     
 
 }
-const Header = {
+const Header = {  //textsixe for the headers of each topic
     fontSize : 24,
     
 
@@ -49,6 +58,7 @@ function Info() {
     return (
         <>
             <NavigationBar/>
+            <h1 style = {{...testAlign,...SMALLERTEXT}} > What we do </h1>
             <h1 style = {testAlign} >We  have  created a website for you to help you personally to improve your hearing </h1>
             <br></br>
             <Row className="justify-content-between">
@@ -62,8 +72,10 @@ function Info() {
                 <Col md="4" className="rounded float-left" style={topright}>
                     <img className="d-flex p-5 col-example" style = {pics1} src= {logo1} />
                     <h1 style = {{...testAlign, ...Header}} >Types of Hearing loss </h1>
-                    <h3 style = {TEXT}> TESTETSTETETTSSTSVUTEDVVXVBGCIHR HUkjjdbrv oh w80u f08ug08je0g0j gf 9w0jrf wuwp99fu 0 </h3>                
+                    <h3 style = {TEXT}> Hearing loss affects people of all ages and can be caused by many different factors. The three basic categories of hearing loss are sensorineural hearing loss, conductive hearing loss and mixed hearing loss. </h3>                
+                    <a href="https://www.hopkinsmedicine.org/health/conditions-and-diseases/hearing-loss/types-of-hearing-loss#:~:text=The%20three%20basic%20categories%20of,loss%20and%20mixed%20hearing%20loss."> <h3 style = {TEXT}> Click Here for More Info </h3>       </a>
                 </Col> 
+
             </Row>
             <br></br>
             <br></br>
@@ -89,21 +101,21 @@ function Info() {
             <br></br>
             <br></br>
             <br></br>
-
+            <h1 style = {testAlign} >About Us</h1>
             <Row className="justify-content-between">
                 <Col md="2" className="rounded float-left" style={topleft}>
-                    <img className="d-flex p-5 col-example" style = {pics2} src= {logo2} />
-                    <h3 style = {TEXT}> JF YFIY IYFY YFYIC TRYTIKUBLGUITIGGOUGHOUAtstuutdutfdiyr6roljh ougolgouigtvoihc;oyo xo;7tk v7igoutoivouh ouoti7bpgout or8y ob7tyi ceio7itui vdiytit yfoyo8ti  </h3>
+                    <img className="d-flex p-5 col-example" style = {pics2} src= {aboutus1} />
+                    <a href="/Moreinfo"> <h3 style = {TEXT}> Report that is only for yourself. </h3> </a>  
                 </Col>
                 
                 <Col md="2" className="rounded float-left" style={topright}>
-                    <img className="d-flex p-5 col-example" style = {pics2} src= {logo} />
-                    <h3 style = {TEXT}> TESTETSTETETTSSTSVUTEDVVXVBGCIHR HUkjjdbrv oh w80u f08ug08je0g0j gf 9w0jrf wuwp99fu 0 </h3>                
+                    <img className="d-flex p-5 col-example" style = {pics2} src= {aboutus2} />
+                    <a href="/Moreinfo"><h3 style = {TEXT}> Get feedback from specialist? </h3>     </a>             
                 </Col> 
 
                 <Col md="2" className="rounded float-left" style={topright}>
-                    <img className="d-flex p-5 col-example" style = {pics2} src= {logo} />
-                    <h3 style = {TEXT}> TESTETSTETETTSSTSVUTEDVVXVBGCIHR HUkjjdbrv oh w80u f08ug08je0g0j gf 9w0jrf wuwp99fu 0 </h3>                
+                    <img  className="d-flex p-5 col-example" style = {pics2} src= {aboutus} />
+                   <a href="/Moreinfo"> <h3 style = {TEXT}> Why Choose Us? </h3>       </a>         
                 </Col>
             </Row>
            

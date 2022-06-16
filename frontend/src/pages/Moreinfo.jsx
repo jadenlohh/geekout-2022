@@ -5,6 +5,8 @@ import logo from './hearing.png';
 import logo1 from './hearing1.png';
 import logo2 from './hearing2.png';
 import logo3 from './hearing3.png';
+import aboutus4 from './aboutus4.png';
+import aboutus3 from './aboutus3.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 
@@ -13,20 +15,18 @@ const testAlign = {
     fontSize : 15,
 
 }
-// const TEXT = {
-//     fontSize : 18,
+ const TEXT = {
+     fontSize : 18,
+     }
+const Header = {
+     fontSize : 24,
     
 
-// }
-// const Header = {
-//     fontSize : 24,
-    
-
-// }
+ }
 
 const pics1 = {
     height : 600 ,
-    width : 600 ,
+    width : 1200 ,
 }
 
 // const pics2 = {
@@ -40,17 +40,36 @@ const pics1 = {
 // }
 
 const middle = {
-    marginLeft: 500,
+    marginLeft: 200,
     marginTop: 50,
 }
 
+const myList = ['Data created by specialised reknowed doctors to help with hearing ', 'Will be able to consult a specialise doctor when you have accumlated enough data', 'Data report generated to help you see if your hearing is improving '];   
+const listItems = myList.map((myList)=>{   
+    return <li>{myList}</li>;   
+});  
 
+const myList1 = ['Experience the latest design specially designed to help each one of you ', 'Catered to every individual', 'Do 1 testing for 5 minutes a day will help you to improve your hearing', 'Health experts anaylsis designed to help you '];   
+const listItems1 = myList1.map((myList1)=>{   
+    return <li>{myList1}</li>;   
+}); 
 
 function Moreinfo() {
     return (
         <>
             <NavigationBar/>
-            <img className="d-flex p-5 col-example" style = {{...pics1,...middle}} src= {test} />
+            <h1 style = {{...testAlign,...Header}}> About Us </h1>
+            <img className="d-flex p-5 col-example" style = {{...pics1,...middle}} src= {aboutus4} />
+            <h3 style = {{...TEXT,...testAlign}}> This page is to detect sign of hearing loss in the early stage</h3>
+            <h3 style = {{...TEXT,...testAlign}}> The test in the website was made through from many researches and collaboration to make it accurate in predicting hearing loss</h3>
+            <br></br>
+            <h3 style = {{...TEXT,...testAlign}}> {listItems1} </h3>
+            <br></br>
+            <br></br>
+            <img className="d-flex p-5 col-example" style = {{...pics1,...middle}} src= {aboutus3} />
+            <h3 style = {{...TEXT,...testAlign}}>About our Data sector and the next steps. </h3>
+            <br></br>
+            <h3 style = {{...TEXT,...testAlign}}> {listItems} </h3>
             
         </>
     )
