@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import useToken from "../hooks/useToken";
 import { useNavigate } from "react-router-dom";
+import NavigationBar from "../components/NavigationBar";
 
 function Login() {
     const { token, saveTokenToLocalStorage } = useToken();
@@ -39,7 +40,7 @@ function Login() {
 
     useEffect(() => {
         if (token) {
-            // TODO: If no token, redirect
+            // TODO: If there is token, redirect
             navigate("/");
         }
     }, [token]);
@@ -77,54 +78,58 @@ function Login() {
     };
 
     return (
-        <div style={loginStyle}>
-            <h3>Welcome!</h3>
-            <p className="mb-5">Please sign in to continue</p>
+        <>
+            <div style={loginStyle}>
+                <h3>Welcome!</h3>
+                <p className="mb-5">Please sign in to continue</p>
 
-            <p className="text-danger">{error}</p>
+                <p className="text-danger">{error}</p>
 
-            <Form onSubmit={handleLogin}>
-                <FloatingLabel
-                    controlId="email"
-                    className="mb-2"
-                    label="Email address"
-                    onChange={(e) => setEmail(e.target.value)}
-                >
-                    <Form.Control
-                        type="email"
-                        className="shadow-none"
-                        placeholder="name@example.com"
-                    />
-                </FloatingLabel>
-
-                <div>
-                    <FloatingLabel controlId="password" label="Password">
+                <Form onSubmit={handleLogin}>
+                    <FloatingLabel
+                        controlId="email"
+                        className="mb-2"
+                        label="Email address"
+                        onChange={(e) => setEmail(e.target.value)}
+                    >
                         <Form.Control
-                            type="password"
+                            type="email"
                             className="shadow-none"
-                            placeholder="Password"
-                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="name@example.com"
+                            required
                         />
                     </FloatingLabel>
-                    <p style={textStyle}>
-                        <a href="/forget">Forgot password</a>
+
+                    <div>
+                        <FloatingLabel controlId="password" label="Password">
+                            <Form.Control
+                                type="password"
+                                className="shadow-none"
+                                placeholder="Password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </FloatingLabel>
+                        <p style={textStyle}>
+                            <a href="/forget">Forgot password</a>
+                        </p>
+                    </div>
+
+                    <Button
+                        variant="primary"
+                        type="submit"
+                        className="shadow-none mt-2"
+                        style={buttonStyle}
+                    >
+                        Continue
+                    </Button>
+
+                    <p className="text-center mt-3" style={signUpStyle}>
+                        Don't have an account? <a href="/register">Sign up</a>
                     </p>
-                </div>
-
-                <Button
-                    variant="primary"
-                    type="submit"
-                    className="shadow-none mt-2"
-                    style={buttonStyle}
-                >
-                    Continue
-                </Button>
-
-                <p className="text-center mt-3" style={signUpStyle}>
-                    Don't have an account? <a href="/register">Sign up</a>
-                </p>
-            </Form>
-        </div>
+                </Form>
+            </div>
+        </>
     );
 }
 
