@@ -7,6 +7,7 @@ import NavigationBar from "../components/NavigationBar";
 import { useNavigate } from "react-router-dom";
 import HearingAbilityGauge from "../components/HearingAbilityGauge";
 import { IoMdHappy, IoMdSad } from "react-icons/io";
+import { DateTime } from "luxon";
 
 export default function ChartPage() {
     const { token } = useContext(TokenContext);
@@ -48,7 +49,11 @@ export default function ChartPage() {
 
                 setScatterSeries([
                     {
-                        name: d.map((item) => item.created_at),
+                        name: d.map((item) =>
+                            DateTime.fromISO(item.created_at, {
+                                zone: "Asia/Singapore",
+                            }).toISO()
+                        ),
                         data: d.map((item) => item.score),
                     },
                 ]);
@@ -73,21 +78,34 @@ export default function ChartPage() {
                         <Card>
                             <Card.Body>
                                 <Card.Title>Last Heard Frequency</Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted" style={{fontSize: "15px"}}>
+                                <Card.Subtitle
+                                    className="mb-2 text-muted"
+                                    style={{ fontSize: "15px" }}
+                                >
                                     The chart below shows the last heard
                                     frequency recorded by the user
                                 </Card.Subtitle>
 
                                 <Card.Text className="my-5">
                                     Last heard frequency:{" "}
-                                    <b>{data.length > 0
-                                        ? `${data[data.length - 1].score}`
-                                        : 0}hz</b> on <b>{data.length > 0
-                                            ? `${data[data.length - 1].created_at}`
-                                            : 0}</b>
-                                        
+                                    <b>
+                                        {data.length > 0
+                                            ? `${data[data.length - 1].score}`
+                                            : 0}
+                                        hz
+                                    </b>{" "}
+                                    on{" "}
+                                    <b>
+                                        {data.length > 0
+                                            ? `${DateTime.fromISO(
+                                                  data[data.length - 1]
+                                                      .created_at
+                                              ).toFormat("dd LLL yyyy HH:mm")}`
+                                            : 0}
+                                    </b>
                                     <br />
-                                    Total number of attempts: <b>{data.length > 0 ? data.length : 0}</b>
+                                    Total number of attempts:{" "}
+                                    <b>{data.length > 0 ? data.length : 0}</b>
                                 </Card.Text>
 
                                 <Chart
@@ -120,17 +138,27 @@ export default function ChartPage() {
                                 <Card.Title>
                                     Scatter Plot of Frequencies
                                 </Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted mb-5" style={{fontSize: "15px"}}>
+                                <Card.Subtitle
+                                    className="mb-2 text-muted mb-5"
+                                    style={{ fontSize: "15px" }}
+                                >
                                     The chart below shows the last heard
                                     frequency against time
                                 </Card.Subtitle>
 
                                 <Chart
                                     options={{
+                                        labels: {
+                                            dateTimeUTC: false,
+                                        },
                                         xaxis: {
+                                            dateTimeUTC: false,
                                             type: "datetime",
-                                            categories: data.map(
-                                                (item) => item.created_at
+                                            categories: data.map((item) =>
+                                                DateTime.fromISO(
+                                                    item.created_at,
+                                                    { zone: "Asia/Singapore" }
+                                                ).toISO()
                                             ),
                                         },
 

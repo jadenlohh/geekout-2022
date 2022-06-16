@@ -6,12 +6,17 @@ const cors = require("cors");
 const os = require("os");
 const createError = require("http-errors");
 const mongoose = require("mongoose");
+const hpp = require("hpp");
+const helmet = require("helmet");
 
 const app = express();
 
 const PORT = process.env.PORT || 3001;
 
+app.use(hpp());
 app.use(cors());
+app.use(helmet());
+app.use(helmet.hidePoweredBy());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
