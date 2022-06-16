@@ -114,7 +114,7 @@ export default function ChartPage() {
                         </Card>
                     </Col>
 
-                    <Col lg={6}>
+                    <Col lg={6} className="d-flex align-items-stretch">
                         <Card>
                             <Card.Body>
                                 <Card.Title>
@@ -147,7 +147,7 @@ export default function ChartPage() {
                     </Col>
                 </Row>
 
-                <Row>
+                <Row className="mt-4">
                     <Col lg={6}>
                         <Card>
                             <Card.Body>
@@ -170,12 +170,12 @@ export default function ChartPage() {
                         </Card>
                     </Col>
 
-                    <Col lg={6}>
-                        <Card>
+                    <Col lg={6} className="d-flex align-items-stretch">
+                        <Card style={{width: "100%"}}>
                             <Card.Body>
                                 {hearingAbilityPercentage > 60 ? (
                                     <>
-                                        <IoMdHappy size={54} />
+                                        <IoMdHappy size={54} className='mt-5' />
                                         <Card.Title>
                                             You are hearing well!
                                         </Card.Title>
@@ -186,7 +186,7 @@ export default function ChartPage() {
                                     </>
                                 ) : (
                                     <>
-                                        <IoMdSad size={54} />
+                                        <IoMdSad size={54} className='mt-5' />
                                         <Card.Title>
                                             You are hearing poorly!
                                         </Card.Title>
@@ -197,6 +197,14 @@ export default function ChartPage() {
                                         </Card.Subtitle>
                                     </>
                                 )}
+
+                                <div style={{textAlign: "left", color: 'grey', fontSize: '14px', width: '70%', position: 'absolute', bottom: '20px'}} className='ms-3'>
+                                    <Row>
+                                        <Col md="1"><img src={"https://img.icons8.com/ios/22/light-on.png"} /></Col>
+                                        <Col md="2" style={{paddingLeft: '4px'}} className="my-auto"><b>Tip:</b></Col>
+                                    </Row>
+                                    <p className="mt-1">Always remember to keep your volume at a safe level and only listen in areas that are less noisy</p>
+                                </div>
                             </Card.Body>
                         </Card>
                     </Col>

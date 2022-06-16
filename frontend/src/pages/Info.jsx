@@ -1,12 +1,13 @@
 import React from 'react';
 import NavigationBar from '../components/NavigationBar';
-import logo from './hearing.png';
-import logo1 from './hearing1.png';
-import logo2 from './hearing2.png';
-import logo3 from './hearing3.png';
-import aboutus from './aboutus.jpg';
-import aboutus1 from './aboutus1.png';
-import aboutus2 from './aboutus2.jpg';
+import banner1 from '../images/hearing.png';
+import banner2 from '../images/hearing1.jpg';
+import banner3 from '../images/hearing2.png';
+import banner4 from '../images/hearing3.png';
+import { Link } from 'react-router-dom';
+// import aboutus from './aboutus.jpg';
+// import aboutus1 from './aboutus1.png';
+// import aboutus2 from './aboutus2.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Row, Col, Card, Button } from 'react-bootstrap';
 
@@ -57,84 +58,111 @@ const topright = {
 function Info() {
     return (
         <>
-            <NavigationBar/>
-            <h1 style = {{...testAlign,...SMALLERTEXT}} > What we do </h1>
-            <h1 style = {testAlign} >We  have  created a website for you to help you personally to improve your hearing </h1>
-            <br></br>
-            <Row className="justify-content-between">
-                <Col md="5" className="rounded float-left" style={topleft}>
-                    <img className="d-flex p-5 col-example" style = {pics1} src= {logo} />
-                    <h1 style = {{...testAlign, ...Header}} >What is Hearing Loss </h1>
-                    <h3 style = {TEXT}> Hearing loss is quite common. A hearing loss can be caused by many factors, but age and noise exposure are the two most common causes. You can have a hearing loss in one ear or in both ears. In this guide, you will get an explanation of what a hearing loss is and find facts about the causes and symptoms of hearing loss. You will also find information about how to treat hearing loss. </h3>
-                </Col>
-                
+            <NavigationBar />
 
-                <Col md="4" className="rounded float-left" style={topright}>
-                    <img className="d-flex p-5 col-example" style = {pics1} src= {logo1} />
-                    <h1 style = {{...testAlign, ...Header}} >Types of Hearing loss </h1>
-                    <h3 style = {TEXT}> Hearing loss affects people of all ages and can be caused by many different factors. The three basic categories of hearing loss are sensorineural hearing loss, conductive hearing loss and mixed hearing loss. </h3>                
-                    <a href="https://www.hopkinsmedicine.org/health/conditions-and-diseases/hearing-loss/types-of-hearing-loss#:~:text=The%20three%20basic%20categories%20of,loss%20and%20mixed%20hearing%20loss."> <h3 style = {TEXT}> Click Here for More Info </h3>       </a>
-                </Col> 
+            <h2 className='mt-5 ms-5'>Information</h2>
+            <p className='ms-5'>Gain a deeper insight about hearing loss</p>
 
-            </Row>
-            <br></br>
-            <br></br>
-            <br></br>
+            <div>
+                <Row xs={1} md={2} className="g-4 mx-5" style={{margin: 'auto'}}>
+                    <Col className='ps-0 d-flex align-items-stretch'>
+                        <Card>
+                            <Card.Img variant="top" src={banner1} />
+                            <Card.Body>
+                                <Card.Title>What is Hearing Loss</Card.Title>
+                                <Card.Text>
+                                    Hearing loss is quite common around the world. It can be caused by many factors, 
+                                    but age and noise exposure are the two most common causes. <br /><br />You can have a hearing 
+                                    loss in one or both ears. Read further below to find out more about the causes and symptoms 
+                                    of hearing loss and how you can prevent it
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
 
-            <Row className="justify-content-between">
-                <Col md="5" className="rounded float-left" style={topleft}>
-                    <img className="d-flex p-5 col-example" style = {pics1} src= {logo2} />
-                    <h1 style = {{...testAlign, ...Header}} >Importance of taking care of ur hearing  </h1>
-                    <h3 style = {TEXT}> The ears are the most visible part of the human hearing system. Taking care of your ears is important in many ways. Cleaning is one step, while preventing and treating infections is another. Ear care also include taking steps to avoid unnecessary noise and watching for possible hearing loss. </h3>
-                </Col>
-                
+                    <Col className='ps-0 d-flex align-items-stretch'>
+                        <Card>
+                            <Card.Img variant="top" src={banner2}/>
+                            <Card.Body>
+                                <Card.Title>Types & Causes of Hearing Loss</Card.Title>
+                                <Card.Text>
+                                    Hearing loss affects people of all ages and can be caused by many different factors. 
+                                    The three basic categories of hearing loss are sensorineural hearing loss, conductive 
+                                    hearing loss and mixed hearing loss
+                                </Card.Text>
+                                <Button variant="primary" className='shadow-none' href="https://bit.ly/39BrJEZ">Read more</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
 
-                <Col md="4" className="rounded float-left" style={topright}>
-                    <img className="d-flex p-5 col-example" style = {pics1} src= {logo3} />
-                    <h1 style = {{...testAlign, ...Header}} >Solutions </h1>
-                    <h3 style = {TEXT}>Several options are available for hearing loss, ranging from medical treatment to listening devices, such as hearing aids. Treatment depends of the cause and severity of hearing loss. For age-related hearing loss, there is no cure, but hearing aids and other listening devices help treat the problem and improve quality of life.</h3>                
-                </Col> 
-            </Row>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
+
+                <Row xs={1} md={2} className="g-4 mx-5" style={{margin: 'auto'}}>
+                    <Col className='ps-0 d-flex align-items-stretch'>
+                        <Card>
+                            <Card.Img variant="top" src={banner3} />
+                            <Card.Body>
+                                <Card.Title>Importance of taking care for your hearing</Card.Title>
+                                <Card.Text>
+                                    The ears are the most visible part of the human hearing system. Taking care of your ears is 
+                                    important in many ways. Cleaning is one step, while preventing and treating infections is another. 
+                                    Ear care also include taking steps to avoid unnecessary noise and watching for possible hearing loss
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                    <Col className='ps-0 d-flex align-items-stretch'>
+                        <Card>
+                            <Card.Img variant="top" src={banner4} style={{height: "68%"}} />
+                            <Card.Body>
+                                <Card.Title>Solution</Card.Title>
+                                <Card.Text>
+                                    Several options are available for hearing loss, ranging from medical treatment to listening devices, such 
+                                    as hearing aids. Treatment depends of the cause and severity of hearing loss. For age-related hearing loss, 
+                                    there is no cure, but hearing aids and other listening devices help treat the problem and improve quality of life
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </div>
+    
+            <div className='text-center' style={{marginTop: "120px", marginBottom: '100px'}}>
+                <h1 style={{fontSize: '47px'}}><b>Detect Early</b></h1>
+                <p style={{fontSize: '17px'}}>It is never too late to take the test for a piece of mind</p>
+                <Button variant='primary' style={{padding: "10px 20px"}} className='shadow-none'>
+                    <Link to="/test" style={{color: 'white', textDecoration: 'none'}}>Start test</Link>
+                </Button>
+            </div>
+
+            
+
+
+
+
+            {/* 
             <h1 style = {testAlign} >About Us</h1>
             <Row className="justify-content-between">
                 <Col md="2" className="rounded float-left" style={topleft}>
                     <img className="d-flex p-5 col-example" style = {pics2} src= {aboutus1} />
-                    <a href="/Moreinfo"> <h3 style = {TEXT}> Report that is only for yourself. </h3> </a>  
+                    <a href="/moreinfo"> <h3 style = {TEXT}> Report that is only for yourself. </h3> </a>  
                 </Col>
                 
                 <Col md="2" className="rounded float-left" style={topright}>
                     <img className="d-flex p-5 col-example" style = {pics2} src= {aboutus2} />
-                    <a href="/Moreinfo"><h3 style = {TEXT}> Get feedback from specialist? </h3>     </a>             
+                    <a href="/moreinfo"><h3 style = {TEXT}> Get feedback from specialist? </h3>     </a>             
                 </Col> 
 
                 <Col md="2" className="rounded float-left" style={topright}>
                     <img  className="d-flex p-5 col-example" style = {pics2} src= {aboutus} />
-                   <a href="/Moreinfo"> <h3 style = {TEXT}> Why Choose Us? </h3>       </a>         
+                   <a href="/moreinfo"> <h3 style = {TEXT}> Why Choose Us? </h3>       </a>         
                 </Col>
             </Row>
-           
+            */}
         </>
     )
 }
 ;
   
-export default Info  ;
-
-
- {/* <Card md="2" className="rounded float-left" >
-                <Card.Img className="d-flex p-5 col-example" variant="top" src={logo} style = {pics2}/>
-                <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
-                    </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
-                </Card.Body>
-            // </Card> */}
+export default Info;
