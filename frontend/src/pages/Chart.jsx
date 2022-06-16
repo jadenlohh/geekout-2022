@@ -13,6 +13,7 @@ import { TokenContext } from "../App";
 import NavigationBar from "../components/NavigationBar";
 import useToken from "../hooks/useToken";
 import { useNavigate } from "react-router-dom";
+import HearingAbilityGauge from "../components/HearingAbilityGauge";
 
 export default function ChartPage() {
     const { token } = useContext(TokenContext);
@@ -148,6 +149,23 @@ export default function ChartPage() {
                                     type="scatter"
                                     width="500"
                                 />
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col lg={6}>
+                        <Card>
+                            <Card.Body>
+                                <Card.Title>Hearing Ability</Card.Title>
+                                <Card.Subtitle className="mb-2 text-muted">
+                                    The chart below shows the hearing ability of
+                                    the user based on the latest 10 last heard
+                                    frequency.
+                                </Card.Subtitle>
+
+                                <HearingAbilityGauge data={data} />
                             </Card.Body>
                         </Card>
                     </Col>
