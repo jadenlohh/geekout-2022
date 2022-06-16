@@ -4,6 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import useToken from "../hooks/useToken";
 import { Link } from "react-router-dom";
 
+import logo from "../pages/logo.jpg";
+
 function NavigationBar() {
     const { token, logOut } = useToken();
 
@@ -11,7 +13,7 @@ function NavigationBar() {
         <Navbar bg="light" expand="lg">
             <Container>
                 <Navbar.Brand>
-                    <img src={logo} width={60}c alt="Logo" />
+                    <img src={logo} width={60} c alt="Logo" />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
