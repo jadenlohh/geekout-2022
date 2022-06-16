@@ -23,9 +23,6 @@ function NavigationBar() {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        
-                    </Nav>
                 </Navbar.Collapse>
 
                 {!token ? (
@@ -49,7 +46,6 @@ function NavigationBar() {
                         </Nav.Link>
                     </Nav>
                 ) : (
-
                     <Nav className="justify-content-end">
                         <Nav.Link className="my-auto">
                             <Link to="/" style={linkStyle}>Home</Link>
@@ -85,19 +81,6 @@ function NavigationBar() {
                             </Dropdown>
                         </Nav.Link>
                     </Nav>
-                    // <Nav className="justify-content-end">
-                    //     <Nav.Link>
-                    //         <Link to="/chart" style={linkStyle}>Chart</Link>
-                    //     </Nav.Link>
-
-                    //     <Nav.Link>
-                    //         <Link to="/profile" style={linkStyle}>Profile</Link>
-                    //     </Nav.Link>
-
-                    //     <Nav.Link>
-                    //         <Link to="/logout" onClick={logOut} style={linkStyle}>Logout</Link>
-                    //     </Nav.Link>
-                    // </Nav>
                 )}
             </Container>
         </Navbar>
