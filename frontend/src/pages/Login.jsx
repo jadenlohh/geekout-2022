@@ -3,6 +3,7 @@ import { FloatingLabel, Form, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import useToken from "../hooks/useToken";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
     const { token, saveTokenToLocalStorage } = useToken();
@@ -34,10 +35,12 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (token) {
             // TODO: If no token, redirect
+            navigate("/");
         }
     }, [token]);
 
