@@ -59,8 +59,6 @@ router.post("/", async (req, res, next) => {
 
     const { token, score } = req.body;
 
-    const collection = client.db("geekout-2022").collection("hearing_data");
-
     // Get the data from the token
     let tokenData;
     try {

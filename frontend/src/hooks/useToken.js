@@ -5,16 +5,16 @@ export default function useToken() {
 
     useEffect(() => {
         // Get the token from localStorage
-        const localToken = localStorage.getItem("token");
+        const localToken = sessionStorage.getItem("token");
         if (localToken) {
             setToken(localToken);
         }
     }, []);
 
-    const saveTokenToLocalStorage = (token) => {
-        localStorage.setItem("token", token);
+    const saveTokenToStorage = (token) => {
+        sessionStorage.setItem("token", token);
         setToken(token);
     };
 
-    return { token, saveTokenToLocalStorage };
+    return { token, saveTokenToLocalStorage: saveTokenToStorage };
 }
