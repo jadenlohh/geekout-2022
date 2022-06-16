@@ -16,5 +16,10 @@ export default function useToken() {
         setToken(token);
     };
 
-    return { token, saveTokenToLocalStorage: saveTokenToStorage };
+    const logOut = () => {
+        sessionStorage.removeItem("token");
+        setToken(null);
+    };
+
+    return { token, saveTokenToStorage, logOut };
 }

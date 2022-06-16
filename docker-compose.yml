@@ -14,6 +14,8 @@ services:
       - "27017"
     volumes:
       - ./data/mongo:/data/db
+    networks:
+      - geekout-team-c
 
   mongo-express:
     image: mongo-express:0.54.0
@@ -29,6 +31,8 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: root
     depends_on:
       - mongo
+    networks:
+      - geekout-team-c
 
   backend:
     container_name: backend
@@ -43,8 +47,10 @@ services:
     ports:
       - "3001:3001"
     restart: on-failure
+    networks:
+      - geekout-team-c
 
-  
+
   frontend:
     container_name: frontend
     image: frontend
@@ -57,4 +63,8 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-    
+    networks:
+      - geekout-team-c
+
+networks:
+  geekout-team-c:
