@@ -4,18 +4,21 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Info from './pages/Info';
 import Moreinfo from './pages/Moreinfo';
-
+import Test from "./pages/Test";
+import Home  from "./pages/Home";
 
 function App() {
     return (
         <>
-            <div style={{margin:"0",padding:"0"}}>
+            <div style={{ margin: "0", padding: "0" }}>
                 <Router>
                     <Routes>
+                        <Route path='/' element={<Home />} />
                         <Route path='/login' element={<Login />} />
                         <Route path='/register' element={<Register />} />
                         <Route path='/info' element={<Info />} />
                         <Route path='/Moreinfo' element={<Moreinfo />} />
+                        <Route path="/test" element={<Test />} />
                     </Routes>
                 </Router>
             </div>

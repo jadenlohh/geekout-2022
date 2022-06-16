@@ -1,8 +1,8 @@
-const Response = require("./Response");
+const { BadRequest } = require("http-errors");
 
-class InvalidBodyResponse extends Response {
-    constructor(data) {
-        super(400, false, data);
+class InvalidBodyResponse extends BadRequest {
+    constructor() {
+        super({ success: false, data: { error: "Invalid body" } });
     }
 }
 
