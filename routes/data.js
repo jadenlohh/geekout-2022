@@ -38,7 +38,7 @@ router.get("/", async (req, res, next) => {
 
     console.log(tokenData);
 
-    HearingData.find({ user_id: _id }, (err, data) => {
+    HearingData.find({ user: _id }, (err, data) => {
         if (err) {
             return next(
                 new InternalServerError("Error connecting to database")

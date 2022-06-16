@@ -1,10 +1,12 @@
 import React from "react";
-import { Container, Navbar, Nav } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-
+import { Container, Navbar, Nav } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import useToken from "../hooks/useToken";
+import { Link } from "react-router-dom";
 
 function NavigationBar() {
+    const { token, logOut } = useToken();
+
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -12,19 +14,50 @@ function NavigationBar() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/info">Information</Nav.Link>
-                        <Nav.Link href="/test">Test</Nav.Link>
+                        <Nav.Link>
+                            <Link to="/">Home</Link>
+                        </Nav.Link>
+
+                        <Nav.Link>
+                            <Link to="/info">Information</Link>
+                        </Nav.Link>
+
+                        <Nav.Link>
+                            <Link to="/test">Test</Link>
+                        </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
 
-                <Nav className="justify-content-end">
-                    <Nav.Link href="/login">Login</Nav.Link>
-                    <Nav.Link href="/register">Sign up</Nav.Link>
-                </Nav>
+                {!token ? (
+                    <Nav className="justify-content-end">
+                        <Nav.Link>
+                            <Link to="/login">Login</Link>
+                        </Nav.Link>
+
+                        <Nav.Link>
+                            <Link to="/register">Register</Link>
+                        </Nav.Link>
+                    </Nav>
+                ) : (
+                    <Nav className="justify-content-end">
+                        <Nav.Link>
+                            <Link to="/chart">Chart</Link>
+                        </Nav.Link>
+
+                        <Nav.Link>
+                            <Link to="/profile">Profile</Link>
+                        </Nav.Link>
+
+                        <Nav.Link>
+                            <Link to="/logout" onClick={logOut}>
+                                Logout
+                            </Link>
+                        </Nav.Link>
+                    </Nav>
+                )}
             </Container>
         </Navbar>
-    )
+    );
 }
 
 export default NavigationBar;
