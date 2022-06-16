@@ -87,7 +87,7 @@ function Test() {
             <Container style={{ textAlign: "center" }}>
                 {status === STATUS.NOT_STARTED && (
                     <>
-                        <h1>Test your hearing</h1>
+                        <h1 className="mt-4">Test your hearing</h1>
                         <p class="lead">
                             Take our quick & easy hearing test online to find
                             out how well can you hear?
@@ -110,8 +110,8 @@ function Test() {
 
                             <p style={{ margin: 0 }}>
                                 The test plays audio at a very high frequency.
-                                Find a quiet place to do the test. Adjust the
-                                volume accordingly. Headphones are recommended.
+                                Find a quiet place to do the test and adjust the
+                                volume accordingly. Headphones are recommended
                             </p>
                         </Alert>
 
@@ -135,15 +135,17 @@ function Test() {
                         <Button
                             variant="primary"
                             onClick={() => setStatus(STATUS.STARTED)}
+                            className="shadow-none"
+                            style={{borderRadius: "30px", padding: "14px 50px"}}
                         >
-                            Continue
+                            Start test
                         </Button>
                     </>
                 )}
 
                 {status === STATUS.STARTED && (
                     <>
-                        <h2>Test your hearing</h2>
+                        <h1 className="mt-4">Test your hearing</h1>
 
                         <p class="lead">
                             At every stage, you will be asked if you can hear
@@ -169,8 +171,28 @@ function Test() {
 
                         <br />
 
-                        <Button onClick={toggle}>
-                            {playing ? "Pause" : "Play"}
+                        <Button onClick={toggle} className="shadow-none" style={{padding: "10px 30px"}}>
+                            {playing ? "Pause sound" : "Play sound"}
+                        </Button>
+
+                        <h2 className="mt-5 mb-3">Can you hear anything?</h2>
+                        <Button
+                            variant="success"
+                            onClick={handleNo}
+                            disabled={!playing}
+                            className="me-3 shadow-none"
+                            style={{padding: "8px 30px"}}
+                        >
+                            Yes
+                        </Button>
+                        <Button
+                            variant="danger"
+                            onClick={handleNextStep}
+                            disabled={!playing}
+                            className="shadow-none"
+                            style={{padding: "8px 30px"}}
+                        >
+                            No
                         </Button>
 
                         <div style={{ marginTop: "2em", marginBottom: "2em" }}>
@@ -216,6 +238,7 @@ function Test() {
                         <Button
                             variant="primary"
                             onClick={() => navigate("/chart")}
+                            className="shadow-none"
                             style={buttonStyle}
                         >
                             Go Statistics Page

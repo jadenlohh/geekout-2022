@@ -52,12 +52,12 @@ export default function Profile() {
         <div>
             <NavigationBar />
             <Container style={{ textAlign: "center" }}>
-                <h1>Profile</h1>
-                <h2>{name}</h2>
+                <h1 className="my-5">My Profile</h1>
+
                 <FloatingLabel
                     controlId="name"
                     className="mb-2"
-                    label="Full Name"
+                    label="Name"
                     onChange={(e) => setName(e.target.value)}
                 >
                     <Form.Control
@@ -72,7 +72,7 @@ export default function Profile() {
                 <FloatingLabel
                     controlId="name"
                     className="mb-2"
-                    label="Email"
+                    label="Email address"
                     onChange={(e) => setEmail(e.target.value)}
                 >
                     <Form.Control
