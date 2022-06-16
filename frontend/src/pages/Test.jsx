@@ -136,7 +136,10 @@ function Test() {
                             variant="primary"
                             onClick={() => setStatus(STATUS.STARTED)}
                             className="shadow-none"
-                            style={{borderRadius: "30px", padding: "14px 50px"}}
+                            style={{
+                                borderRadius: "30px",
+                                padding: "14px 50px",
+                            }}
                         >
                             Start test
                         </Button>
@@ -171,59 +174,35 @@ function Test() {
 
                         <br />
 
-                        <Button onClick={toggle} className="shadow-none" style={{padding: "10px 30px"}}>
+                        <Button
+                            onClick={toggle}
+                            className="shadow-none"
+                            style={{ padding: "10px 30px" }}
+                        >
                             {playing ? "Pause sound" : "Play sound"}
                         </Button>
 
                         <h2 className="mt-5 mb-3">Can you hear anything?</h2>
-                        <Button
-                            variant="success"
-                            onClick={handleNo}
-                            disabled={!playing}
-                            className="me-3 shadow-none"
-                            style={{padding: "8px 30px"}}
-                        >
-                            Yes
-                        </Button>
+
                         <Button
                             variant="danger"
                             onClick={handleNextStep}
                             disabled={!playing}
-                            className="shadow-none"
-                            style={{padding: "8px 30px"}}
+                            className="me-3 shadow-none"
+                            style={{ padding: "8px 30px" }}
                         >
                             No
                         </Button>
 
-                        <div style={{ marginTop: "2em", marginBottom: "2em" }}>
-                            <h1>Can you hear anything?</h1>
-
-                            <Row>
-                                <Col lg={6}>
-                                    <div className="d-grid gap-2">
-                                        <Button
-                                            variant="danger"
-                                            onClick={handleNextStep}
-                                            disabled={!playing}
-                                        >
-                                            No
-                                        </Button>
-                                    </div>
-                                </Col>
-
-                                <Col lg={6}>
-                                    <div className="d-grid gap-2">
-                                        <Button
-                                            variant="success"
-                                            onClick={handleNo}
-                                            disabled={!playing}
-                                        >
-                                            Yes
-                                        </Button>
-                                    </div>
-                                </Col>
-                            </Row>
-                        </div>
+                        <Button
+                            variant="success"
+                            onClick={handleNo}
+                            disabled={!playing}
+                            className="shadow-none"
+                            style={{ padding: "8px 30px" }}
+                        >
+                            Yes
+                        </Button>
                     </>
                 )}
 
