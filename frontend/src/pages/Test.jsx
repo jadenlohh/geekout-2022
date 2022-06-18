@@ -12,9 +12,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useFrequency } from "react-frequency";
 import { IoMdWarning, IoWarning } from "react-icons/io5";
 import NavigationBar from "../components/NavigationBar";
-import useToken from "../hooks/useToken";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TokenContext } from "../App";
 import generateFrequencySteps from "../utils/generateFrequencySteps";
 
@@ -24,8 +23,9 @@ const frequencySteps = generateFrequencySteps(0, 20000, 500).reverse();
 console.log(frequencySteps);
 
 const buttonStyle = {
-    width: "100%",
-    padding: "10px",
+    borderRadius: "10px",
+    width: "50%",
+    padding: "14px",
 };
 
 const STATUS = {
@@ -208,20 +208,22 @@ function Test() {
 
                 {status === STATUS.FINISHED && (
                     <>
-                        <h1>Test completed</h1>
+                        <h1 className="mt-5">Test completed</h1>
                         <p class="lead">
-                            You can now go to your statistics page to see how
-                            your hearing is.
+                            You can now go to your statistics page to view
+                            your results
                         </p>
 
                         <Button
                             variant="primary"
                             onClick={() => navigate("/chart")}
-                            className="shadow-none"
+                            className="shadow-none mt-3 mb-2"
                             style={buttonStyle}
                         >
-                            Go Statistics Page
+                            View statistics                  
                         </Button>
+                        <br />
+                        <Link to='/' style={{fontSize: '15px'}}>Back to home</Link>
                     </>
                 )}
             </Container>

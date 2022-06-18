@@ -1,12 +1,12 @@
 // import React from 'react';
 // import NavigationBar from '../components/NavigationBar';
-// import test from './flower.jpeg';
-// import logo from './hearing.png';
-// import logo1 from './hearing1.png';
-// import logo2 from './hearing2.png';
-// import logo3 from './hearing3.png';
-// import aboutus4 from './aboutus4.png';
-// import aboutus3 from './aboutus3.png';
+// import test from '../images/flower.jpeg';
+// import logo from '../images/hearing.png';
+// import logo1 from '../images/hearing1.png';
+// import logo2 from '../images/hearing2.png';
+// import logo3 from '../images/hearing3.png';
+// import aboutus4 from '../images/aboutus4.png';
+// import aboutus3 from '../images/aboutus3.png';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import { Row, Col, Card, Button } from 'react-bootstrap';
 

@@ -26,7 +26,7 @@ To connect to the cloud database, head over to `app.js` and comment line 23 and 
 ```js
 // const uri = "mongodb://root:root@localhost:27017";
 const uri =
-    "mongodb+srv://Admin:lAf8JiPQynG0mCGm@cluster0.vobnv.mongodb.net/?retryWrites=true&w=majority";
+    "mongoURI";
 ```
 
 All data will be synced to the cloud database when using the application.
@@ -37,7 +37,7 @@ To connect to the local database (managed by docker), head over to `app.js` and 
 
 ```js
 const uri = "mongodb://root:root@localhost:27017";
-// const uri = "mongodb+srv://Admin:lAf8JiPQynG0mCGm@cluster0.vobnv.mongodb.net/?retryWrites=true&w=majority";
+// const uri = "mongoURI";
 ```
 
 After that you have to start the docker containers. You need to run these commands:
